@@ -10,6 +10,7 @@ import BottomTabNavigator from "./navigation/BottomTabNavigator";
 import LinkingConfiguration from "./navigation/LinkingConfiguration";
 import { ThemeProvider } from "theme-ui-native";
 import theme from "./constants/theme";
+import { FaunaProvider } from "./constants/fauna";
 
 const Stack = createStackNavigator();
 
@@ -44,14 +45,16 @@ export default function App(props) {
   } else {
     return (
       <ThemeProvider theme={theme}>
-        <View style={styles.container}>
-          {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
-          <NavigationContainer linking={LinkingConfiguration}>
-            <Stack.Navigator>
-              <Stack.Screen name="Root" component={BottomTabNavigator} />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </View>
+        <FaunaProvider faunaSecret="fnADoIS9iEACC1cpZOJ9xv3medCpjlMrdxy64UuB">
+          <View style={styles.container}>
+            {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
+            <NavigationContainer linking={LinkingConfiguration}>
+              <Stack.Navigator>
+                <Stack.Screen name="Root" component={BottomTabNavigator} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </View>
+        </FaunaProvider>
       </ThemeProvider>
     );
   }

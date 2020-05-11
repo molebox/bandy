@@ -13,8 +13,11 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 
 import { MonoText } from "../components/StyledText";
+import { useFaunaGetSingle } from "../constants/fauna";
 
 export default function HomeScreen() {
+  const single = useFaunaGetSingle('characterById', '5a109e543dc2080021cd8790');
+  console.log({single})
   return (
     <View style={styles.container}>
       <ScrollView
@@ -35,9 +38,12 @@ export default function HomeScreen() {
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
 
+          {single.isLoading || single.response === null ? <Text>Loading.....</Text> : <Text sx={{
+              color: "accent",
+            }}>{single.response.name}</Text>}
           <Text
             sx={{
-              color: "accent",
+              color: "blue",
             }}
           >
             Open up the code for this screen:
@@ -51,7 +57,7 @@ export default function HomeScreen() {
 
           <Text style={styles.getStartedText}>
             Change any of the text, save the file, and your app will
-            automatically reload. Yo!
+            automatically reload. 
           </Text>
         </View>
 

@@ -18,11 +18,12 @@ export default {
     text: "5px",
   },
   colors: {
-    text: "#FFFfff",
-    background: "#121212",
-    primary: "#000010",
-    secondary: "#E7E7E9",
-    secondaryDarker: "#0F1218",
-    accent: "#DE3C4B",
+    text: "#0F1218",
+    textInvert: "#FFF",
+    background: "#FFF",
+    primary: "#F3D26E",
+    secondary: "#E15554",
+    alpha: "#7768AE",
+    bravo: "#795F4B",
   },
 };

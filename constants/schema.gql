@@ -1,0 +1,36 @@
+type Query {
+  allUsers: [User]
+  allItems: [Item]
+  allMessages: [Message]
+}
+
+type User {
+  name: String!
+  location: String!
+  items: [Item] @relation
+  contact: Contact!
+  messages: [Message] @relation
+}
+
+type Contact {
+  email: String!
+  phone: String
+}
+
+type Item {
+  name: String!
+  price: Float
+  location: String!
+  description: String!
+  photo: String!
+  swapped: Boolean
+  date: Date!
+  owner: User!
+}
+
+type Message {
+  to: String!
+  from: String!
+  message: String!
+  owner: [User!] @relation
+}

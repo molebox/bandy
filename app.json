@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "bandy",
-    "slug": "bandy",
+    "name": "bandy-v0",
+    "slug": "bandy-v0",
     "platforms": [
       "ios",
       "android",
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "description": "Added theme-ui-native and its not working to wrap App.js in the provider"
   }
 }
