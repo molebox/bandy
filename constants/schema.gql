@@ -1,18 +1,12 @@
 type Query {
   allUsers: [User]
   allItems: [Item]
-  allMessages: [Message]
 }
 
 type User {
   name: String!
   location: String!
   items: [Item] @relation
-  contact: Contact!
-  messages: [Message] @relation
-}
-
-type Contact {
   email: String!
   phone: String
 }
@@ -26,11 +20,6 @@ type Item {
   swapped: Boolean
   date: Date!
   owner: User!
-}
-
-type Message {
-  to: String!
-  from: String!
-  message: String!
-  owner: [User!] @relation
+  contactByEmail: Boolean
+  contactByPhone: Boolean
 }

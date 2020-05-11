@@ -1,4 +1,3 @@
-
 `
 query {
     allUsers {
@@ -9,9 +8,26 @@ query {
       }
     }
   }
-`
-
-`
+``
+query {
+  allItems {
+    data {
+      name
+      location
+      description
+      swapped
+      date
+      contactByPhone
+      contactByEmail
+      owner {
+        name
+        email 
+        phone
+      }
+    }
+  }
+}
+``
 mutation {
     createUser(
       data: {
@@ -28,34 +44,7 @@ mutation {
       }
     }
   }
-`
-
-`
-mutation {
-    createMessage(
-      data: {
-        to: "emeliehaines@hotmail.com"
-        from: "hello@richardhaines.dev"
-        message: "I would like to sawp something please"
-        owner: { connect: "265154826419044866" }
-      }
-    ) {
-      _id
-      message
-      owner {
-        data {
-          name
-          location
-          contact {
-            email
-          }
-        }
-      }
-    }
-  }
-`
-
-`
+``
 mutation {
     createItem(
       data: {
@@ -79,4 +68,4 @@ mutation {
       }
     }
   }
-`
+`;

@@ -1,11 +1,10 @@
 export default {
   fonts: {
-    body: "Open Sans",
-    heading: "Montserrat",
+    content: "Montserrat",
   },
   fontWeights: {
-    body: 300,
-    heading: 400,
+    light: 300,
+    regular: 400,
     bold: 700,
   },
   lineHeights: {

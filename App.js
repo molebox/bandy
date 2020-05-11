@@ -10,7 +10,8 @@ import BottomTabNavigator from "./navigation/BottomTabNavigator";
 import LinkingConfiguration from "./navigation/LinkingConfiguration";
 import { ThemeProvider } from "theme-ui-native";
 import theme from "./constants/theme";
-import { FaunaProvider } from "./constants/fauna";
+import Apollo from "./constants/apollo";
+import MainContainer from "./components/app/main-container";
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,9 @@ export default function App(props) {
         await Font.loadAsync({
           ...Ionicons.font,
           "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
+          "montserrat-light": require("./assets/fonts/Montserrat-Light.ttf"),
+          "montserrat-regular": require("./assets/fonts/Montserrat-Regular.ttf"),
+          "montserrat-bold": require("./assets/fonts/Montserrat-Bold.ttf"),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
@@ -44,18 +48,18 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <ThemeProvider theme={theme}>
-        <FaunaProvider faunaSecret="fnADoIS9iEACC1cpZOJ9xv3medCpjlMrdxy64UuB">
-          <View style={styles.container}>
+      <Apollo>
+        <ThemeProvider theme={theme}>
+          <MainContainer>
             {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
             <NavigationContainer linking={LinkingConfiguration}>
               <Stack.Navigator>
                 <Stack.Screen name="Root" component={BottomTabNavigator} />
               </Stack.Navigator>
             </NavigationContainer>
-          </View>
-        </FaunaProvider>
-      </ThemeProvider>
+          </MainContainer>
+        </ThemeProvider>
+      </Apollo>
     );
   }
 }

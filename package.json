@@ -28,6 +28,8 @@
     "expo-linking": "^1.0.0",
     "expo-web-browser": "~8.2.0",
     "faunadb": "^2.14.0",
+    "graphql": "^15.0.0",
+    "graphql-tag": "^2.10.3",
     "isomorphic-fetch": "^2.2.1",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
