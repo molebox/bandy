@@ -56,11 +56,13 @@ export default function ItemsScreen() {
   }
   return (
     <MainContainer>
-      <FlatList
-        data={data.allItems.data}
-        renderItem={({ item }) => <Card key={item._id} {...item} />}
-        keyExtractor={(item) => item._id}
-      />
+      <View style={{ marginTop: 30 }}>
+        <FlatList
+          data={data.allItems.data}
+          renderItem={({ item }) => <Card key={item._id} {...item} />}
+          keyExtractor={(item) => item._id}
+        />
+      </View>
     </MainContainer>
   );
 }

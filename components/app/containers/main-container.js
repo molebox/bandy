@@ -7,10 +7,10 @@ const MainContainer = ({ children }) => {
 
   return (
     <View
-      sx={{
+      style={{
         flex: 1,
         backgroundColor: colors.background,
-        marginTop: 10,
+        // marginTop: 10,
       }}
     >
       {children}

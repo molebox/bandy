@@ -7,6 +7,7 @@ export default {
       path: "root",
       screens: {
         Home: "home",
+        Items: "items",
         Links: "links",
       },
     },

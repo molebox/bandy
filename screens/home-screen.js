@@ -48,11 +48,9 @@ export default function HomeScreen() {
         contentContainerStyle={styles.contentContainer}
       >
         <Text>TEST</Text>
-        {/* {data.allUsers.data.map((user) => (
-          <Text key={user._id}>
-            {user.name}
-          </Text>
-        ))} */}
+        {data.allUsers.data.map((user) => (
+          <Text key={user._id}>{user.name}</Text>
+        ))}
       </ScrollView>
     </MainContainer>
   );

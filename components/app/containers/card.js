@@ -24,27 +24,34 @@ const Card = (props) => {
 
   return (
     <PaperCard
-      elevation={2}
+      elevation={4}
       style={{
         padding: 5,
-        marginBottom: 10,
+        marginBottom: 50,
         marginRight: 10,
         marginLeft: 10,
-        backgroundColor: colors.primary,
+        backgroundColor: colors.background,
       }}
     >
       <PaperCard.Title title={title} />
       <PaperCard.Content>
         <Paragraph>{description}</Paragraph>
       </PaperCard.Content>
-      <PaperCard.Cover source={photo} />
+      <PaperCard.Cover
+        style={{ marginBottom: 10, marginTop: 10 }}
+        source={{ uri: photo }}
+      />
       <PaperCard.Actions style={{ justifyContent: "space-between" }}>
         {contactByEmail ? (
-          <Button style={{ backgroundColor: colors.surface }} mode="contained">
+          <Button style={{ backgroundColor: colors.primary }} mode="contained">
             Email Owner
           </Button>
         ) : null}
-        {contactByPhone ? <Button mode="contained">Call Owner</Button> : null}
+        {contactByPhone ? (
+          <Button style={{ backgroundColor: colors.primary }} mode="contained">
+            Call Owner
+          </Button>
+        ) : null}
       </PaperCard.Actions>
     </PaperCard>
   );
