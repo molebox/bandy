@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui-native";
 import * as WebBrowser from "expo-web-browser";
 import * as React from "react";
 import {
@@ -12,10 +10,10 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-import { MonoText } from "../components/StyledText";
 import { gql, useQuery } from "@apollo/client";
-import MainContainer from "../components/app/main-container";
-import { TextBold } from "../components/app/text-bold";
+import MainContainer from "../components/app/containers/main-container";
+import Loading from "../components/app/loading";
+import Center from "../components/app/containers/center";
 
 const GET_USERS = gql`
   query GetUsers {
@@ -31,11 +29,15 @@ const GET_USERS = gql`
 
 export default function HomeScreen() {
   const { loading, error, data } = useQuery(GET_USERS);
+  console.log({ error });
+  console.log({ loading });
   console.log({ data });
   if (loading) {
     return (
       <MainContainer>
-        <TextBold>Loading.....</TextBold>
+        <Center>
+          <Loading />
+        </Center>
       </MainContainer>
     );
   }
@@ -45,11 +47,12 @@ export default function HomeScreen() {
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
       >
-        {data.allUsers.data.map((user) => (
-          <TextBold sx={{ color: "secondary" }} key={user._id}>
+        <Text>TEST</Text>
+        {/* {data.allUsers.data.map((user) => (
+          <Text key={user._id}>
             {user.name}
-          </TextBold>
-        ))}
+          </Text>
+        ))} */}
       </ScrollView>
     </MainContainer>
   );

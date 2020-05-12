@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui-native";
 import * as WebBrowser from "expo-web-browser";
 import * as React from "react";
 import {
@@ -9,23 +7,28 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 import { gql, useQuery } from "@apollo/client";
-import MainContainer from "../components/app/main-container";
-import { TextBold } from "../components/app/text-bold";
-import List from "../components/app/list";
+import MainContainer from "../components/app/containers/main-container";
+
+import Center from "../components/app/containers/center";
+import Loading from "../components/app/loading";
+import Card from "../components/app/containers/card";
 
 const GET_ITEMS = gql`
   query GetItems {
     allItems {
       data {
+        _id
         name
         location
         description
         swapped
         date
+        photo
         contactByPhone
         contactByEmail
         owner {
@@ -45,13 +48,19 @@ export default function ItemsScreen() {
   if (loading) {
     return (
       <MainContainer>
-        <TextBold>Loading.....</TextBold>
+        <Center>
+          <Loading />
+        </Center>
       </MainContainer>
     );
   }
   return (
     <MainContainer>
-      <List data={data.allItems.data} />
+      <FlatList
+        data={data.allItems.data}
+        renderItem={({ item }) => <Card key={item._id} {...item} />}
+        keyExtractor={(item) => item._id}
+      />
     </MainContainer>
   );
 }

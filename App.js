@@ -8,12 +8,52 @@ import { Platform, StatusBar, StyleSheet, View } from "react-native";
 
 import BottomTabNavigator from "./navigation/BottomTabNavigator";
 import LinkingConfiguration from "./navigation/LinkingConfiguration";
-import { ThemeProvider } from "theme-ui-native";
-import theme from "./constants/theme";
+import {
+  configureFonts,
+  DefaultTheme,
+  Provider as PaperProvider,
+} from "react-native-paper";
 import Apollo from "./constants/apollo";
-import MainContainer from "./components/app/main-container";
+import MainContainer from "./components/app/containers/main-container";
 
 const Stack = createStackNavigator();
+
+const fontConfig = {
+  default: {
+    regular: {
+      fontFamily: "montserrat-regular",
+      fontWeight: "normal",
+    },
+    medium: {
+      fontFamily: "montserrat-medium",
+      fontWeight: "normal",
+    },
+    light: {
+      fontFamily: "montserrat-light",
+      fontWeight: "normal",
+    },
+    thin: {
+      fontFamily: "montserrat-thin",
+      fontWeight: "normal",
+    },
+  },
+};
+
+const theme = {
+  ...DefaultTheme,
+  fonts: configureFonts(fontConfig),
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "#F8E37E",
+    accent: "#E15554",
+    background: "#0999",
+    surface: "#FFF",
+    text: "#0F1218",
+    disabled: "#530908",
+    placeholder: "#56595D",
+    backdrop: "#56595D",
+  },
+};
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
@@ -28,8 +68,10 @@ export default function App(props) {
         await Font.loadAsync({
           ...Ionicons.font,
           "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
+          "montserrat-thin": require("./assets/fonts/Montserrat-Thin.ttf"),
           "montserrat-light": require("./assets/fonts/Montserrat-Light.ttf"),
           "montserrat-regular": require("./assets/fonts/Montserrat-Regular.ttf"),
+          "montserrat-medium": require("./assets/fonts/Montserrat-Medium.ttf"),
           "montserrat-bold": require("./assets/fonts/Montserrat-Bold.ttf"),
         });
       } catch (e) {
@@ -47,9 +89,10 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   } else {
+    console.log("APP.JS LOADED");
     return (
       <Apollo>
-        <ThemeProvider theme={theme}>
+        <PaperProvider theme={theme}>
           <MainContainer>
             {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
             <NavigationContainer linking={LinkingConfiguration}>
@@ -58,7 +101,7 @@ export default function App(props) {
               </Stack.Navigator>
             </NavigationContainer>
           </MainContainer>
-        </ThemeProvider>
+        </PaperProvider>
       </Apollo>
     );
   }
