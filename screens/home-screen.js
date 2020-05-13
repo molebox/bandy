@@ -1,25 +1,16 @@
-import * as WebBrowser from "expo-web-browser";
 import * as React from "react";
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  FlatList,
-} from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { Searchbar } from "react-native-paper";
+import { View, FlatList } from "react-native";
+import { List, useTheme, Text, Divider, FAB } from "react-native-paper";
 
 import { gql, useQuery } from "@apollo/client";
 import MainContainer from "../components/app/containers/main-container";
 import Loading from "../components/app/loading";
 import Center from "../components/app/containers/center";
-import Logo from "./../components/app/logo";
 import Card from "./../components/app/containers/card";
 import { useSearchBar } from "./../components/app/useSearchBar";
 import SearchBar from "./../components/app/searchbar";
+import { ScrollView } from "react-native-gesture-handler";
+import { Entypo } from "@expo/vector-icons";
 
 // const GET_USERS = gql`
 //   query GetUsers {
@@ -59,19 +50,65 @@ const GET_ITEMS = gql`
 export default function HomeScreen() {
   const { loading, error, data } = useQuery(GET_ITEMS);
   const { items, handleSearchQuery, searchQuery } = useSearchBar(data);
+  const [locationExpanded, setLocationExpanded] = React.useState(false);
+  const { colors } = useTheme();
+  let scroll;
 
-  if (loading) {
-    return (
-      <MainContainer>
-        <Center>
-          <Loading />
-        </Center>
-      </MainContainer>
-    );
-  }
-  return (
-    <MainContainer>
-      <View style={{ marginTop: 50 }}>
+  const handleLocationDropdown = () => setLocationExpanded(!locationExpanded);
+
+  const header = () => (
+    <>
+      <View
+        style={{
+          marginTop: 50,
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "row",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 40,
+            color: colors.background,
+            marginRight: 20,
+          }}
+        >
+          Bandy
+        </Text>
+        <Entypo name="rainbow" size={55} color={colors.background} />
+      </View>
+      <Divider
+        style={{
+          backgroundColor: colors.background,
+          width: 500,
+          height: 2,
+          marginVertical: 10,
+        }}
+      />
+      <View>
+        <List.Section
+          title="Välj Plats"
+          titleStyle={{ color: colors.background, fontSize: 20 }}
+        >
+          <List.Accordion
+            title="Hela Sverige"
+            titleStyle={{ color: colors.background }}
+            left={(props) => (
+              <List.Icon
+                {...props}
+                color={colors.background}
+                icon="crosshairs-gps"
+              />
+            )}
+            expanded={locationExpanded}
+            onPress={handleLocationDropdown}
+          >
+            <List.Item title="Västernorrlands län" />
+            <List.Item title="Stockholms län" />
+            <List.Item title="Värmlands län" />
+            <List.Item title="Västerbottens län" />
+          </List.Accordion>
+        </List.Section>
         <View
           style={{
             alignItems: "center",
@@ -86,105 +123,56 @@ export default function HomeScreen() {
             searchQuery={searchQuery}
           />
         </View>
-        <FlatList
-          data={items.length ? items : data.allItems.data}
-          renderItem={({ item }) => <Card key={item._id} {...item} />}
-          keyExtractor={(item) => item._id}
-        />
       </View>
-    </MainContainer>
+    </>
+  );
+
+  const scrollToTop = () => {
+    scroll.scrollTo({ x: 0, y: 0, animated: true });
+  };
+
+  if (loading && data === undefined) {
+    return (
+      <MainContainer>
+        <Center>
+          <Loading />
+        </Center>
+      </MainContainer>
+    );
+  }
+  return (
+    <>
+      <ScrollView
+        ref={(c) => {
+          scroll = c;
+        }}
+      >
+        <MainContainer>
+          <FlatList
+            // data={data.allItems.data}
+            data={items.length ? items : data.allItems.data}
+            renderItem={({ item }) => <Card key={item._id} {...item} />}
+            keyExtractor={(item) => item._id}
+            ListHeaderComponent={header}
+          />
+        </MainContainer>
+      </ScrollView>
+      <FAB
+        icon="arrow-expand-up"
+        color={colors.background}
+        onPress={scrollToTop}
+        style={{
+          position: "absolute",
+          margin: 15,
+          right: 0,
+          bottom: 0,
+          backgroundColor: colors.accent,
+        }}
+      />
+    </>
   );
 }
 
 HomeScreen.navigationOptions = {
   header: null,
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: "rgba(0,0,0,0.4)",
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: "center",
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: "center",
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: "contain",
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: "center",
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: "rgba(96,100,109, 0.8)",
-  },
-  codeHighlightContainer: {
-    backgroundColor: "rgba(0,0,0,0.05)",
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    lineHeight: 24,
-    textAlign: "center",
-  },
-  tabBarInfoContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: "black",
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: "center",
-    backgroundColor: "#fbfbfb",
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    textAlign: "center",
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: "center",
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: "#2e78b7",
-  },
-});

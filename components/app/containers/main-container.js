@@ -10,7 +10,6 @@ const MainContainer = ({ children }) => {
       style={{
         flex: 1,
         backgroundColor: colors.primary,
-        // marginTop: 10,
       }}
     >
       {children}

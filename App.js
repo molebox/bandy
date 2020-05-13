@@ -44,15 +44,15 @@ const theme = {
   fonts: configureFonts(fontConfig),
   colors: {
     ...DefaultTheme.colors,
-    primary: "#FEFC97",
+    primary: "hsl(260, 100%, 80%)",
+    secondary: "hsl(290, 100%, 80%)",
     accent: "#F3A19B",
-    button: "#39cfba",
-    background: "#FFF",
+    background: "hsl(230, 25%, 18%)",
     surface: "#FFF",
-    text: "#0F1218",
+    text: "hsl(210, 50%, 96%)",
     disabled: "#530908",
-    placeholder: "#56595D",
-    backdrop: "#56595D",
+    placeholder: "hsl(210, 50%, 60%)",
+    backdrop: "hsl(210, 50%, 60%)",
   },
 };
 

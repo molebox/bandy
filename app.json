@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "bandy-ItemsPage",
-    "slug": "bandy-itemspage",
+    "name": "bandy-items-error",
+    "slug": "bandy-items-error",
     "platforms": [
       "ios",
       "android",
@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
-    "description": "Items page is up, with searchbar"
+    "description": "Items error fix"
   }
 }

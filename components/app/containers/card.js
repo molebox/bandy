@@ -4,9 +4,7 @@ import {
   Card as PaperCard,
   Paragraph,
   useTheme,
-  Text,
 } from "react-native-paper";
-import { AntDesign } from "@expo/vector-icons";
 import { View } from "react-native";
 
 const Card = (props) => {
@@ -24,8 +22,6 @@ const Card = (props) => {
   console.log({ owner });
   const { name, email, phone } = owner;
   const { colors } = useTheme();
-
-  const emailIcon = <AntDesign name="mail" size={10} color="black" />;
 
   return (
     <PaperCard
@@ -62,7 +58,7 @@ const Card = (props) => {
         {contactByEmail ? (
           <Button
             icon="email"
-            style={{ backgroundColor: colors.button, padding: 2 }}
+            style={{ backgroundColor: colors.secondary, padding: 2 }}
             mode="contained"
           >
             Email
@@ -71,7 +67,7 @@ const Card = (props) => {
         {contactByPhone ? (
           <Button
             icon="phone"
-            style={{ backgroundColor: colors.button, padding: 2 }}
+            style={{ backgroundColor: colors.secondary, padding: 2 }}
             mode="contained"
           >
             Call
