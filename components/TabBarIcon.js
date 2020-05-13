@@ -1,15 +1,15 @@
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import * as React from "react";
-
-import Colors from "../constants/Colors";
+import { useTheme } from "react-native-paper";
 
 export default function TabBarIcon(props) {
+  const { colors } = useTheme();
   return (
-    <Ionicons
+    <AntDesign
       name={props.name}
       size={30}
-      style={{ marginBottom: -3 }}
-      color={props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+      style={{ marginBottom: -5, marginTop: 10 }}
+      color={props.focused ? colors.accent : colors.text}
     />
   );
 }

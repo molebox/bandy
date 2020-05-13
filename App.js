@@ -44,8 +44,9 @@ const theme = {
   fonts: configureFonts(fontConfig),
   colors: {
     ...DefaultTheme.colors,
-    primary: "#F8E37E",
-    accent: "#E15554",
+    primary: "#FEFC97",
+    accent: "#F3A19B",
+    button: "#39cfba",
     background: "#FFF",
     surface: "#FFF",
     text: "#0F1218",
@@ -89,14 +90,13 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   } else {
-    console.log("APP.JS LOADED");
     return (
       <Apollo>
         <PaperProvider theme={theme}>
           <MainContainer>
             {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
             <NavigationContainer linking={LinkingConfiguration}>
-              <Stack.Navigator>
+              <Stack.Navigator headerMode="none">
                 <Stack.Screen name="Root" component={BottomTabNavigator} />
               </Stack.Navigator>
             </NavigationContainer>
@@ -106,10 +106,3 @@ export default function App(props) {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-});

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "bandy-v0",
-    "slug": "bandy-v0",
+    "name": "bandy-ItemsPage",
+    "slug": "bandy-itemspage",
     "platforms": [
       "ios",
       "android",
@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
-    "description": "Added theme-ui-native and its not working to wrap App.js in the provider"
+    "description": "Items page is up, with searchbar"
   }
 }

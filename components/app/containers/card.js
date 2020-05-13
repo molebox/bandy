@@ -4,7 +4,10 @@ import {
   Card as PaperCard,
   Paragraph,
   useTheme,
+  Text,
 } from "react-native-paper";
+import { AntDesign } from "@expo/vector-icons";
+import { View } from "react-native";
 
 const Card = (props) => {
   const {
@@ -22,34 +25,56 @@ const Card = (props) => {
   const { name, email, phone } = owner;
   const { colors } = useTheme();
 
+  const emailIcon = <AntDesign name="mail" size={10} color="black" />;
+
   return (
     <PaperCard
-      elevation={4}
+      elevation={5}
       style={{
         padding: 5,
-        marginBottom: 50,
+        marginBottom: 20,
         marginRight: 10,
         marginLeft: 10,
         backgroundColor: colors.background,
       }}
     >
-      <PaperCard.Title title={title} />
+      <PaperCard.Title title={title} style={{ fontWeight: "bold" }} />
       <PaperCard.Content>
-        <Paragraph>{description}</Paragraph>
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <Paragraph style={{ marginBottom: 10, fontWeight: "bold" }}>
+            {location} -{" "}
+          </Paragraph>
+          <Paragraph style={{ marginBottom: 10 }}>{name}</Paragraph>
+        </View>
+        <Paragraph style={{ marginBottom: 10 }}>Posted: {date}</Paragraph>
+        <Paragraph style={{ marginBottom: 10 }}>{description}</Paragraph>
       </PaperCard.Content>
       <PaperCard.Cover
         style={{ marginBottom: 10, marginTop: 10 }}
         source={{ uri: photo }}
       />
-      <PaperCard.Actions style={{ justifyContent: "space-between" }}>
+
+      <PaperCard.Actions style={{ justifyContent: "space-evenly" }}>
         {contactByEmail ? (
-          <Button style={{ backgroundColor: colors.primary }} mode="contained">
-            Email Owner
+          <Button
+            icon="email"
+            style={{ backgroundColor: colors.button, padding: 2 }}
+            mode="contained"
+          >
+            Email
           </Button>
         ) : null}
         {contactByPhone ? (
-          <Button style={{ backgroundColor: colors.primary }} mode="contained">
-            Call Owner
+          <Button
+            icon="phone"
+            style={{ backgroundColor: colors.button, padding: 2 }}
+            mode="contained"
+          >
+            Call
           </Button>
         ) : null}
       </PaperCard.Actions>

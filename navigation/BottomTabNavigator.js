@@ -5,6 +5,7 @@ import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/home-screen";
 import LinksScreen from "../screens/LinksScreen";
 import ItemsScreen from "../screens/items-screen";
+import { useTheme } from "react-native-paper";
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = "Home";
@@ -13,7 +14,8 @@ export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
-  navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+  navigation.setOptions({ headerTitle: getHeaderTitle(route), color: "#bebe" });
+  const { colors } = useTheme();
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
@@ -21,9 +23,10 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Home"
         component={HomeScreen}
         options={{
-          title: "Get Started",
+          title: "",
+          color: colors.text,
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} name="md-code-working" />
+            <TabBarIcon focused={focused} name="home" />
           ),
         }}
       />
@@ -31,13 +34,14 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Items"
         component={ItemsScreen}
         options={{
-          title: "My Items",
+          title: "",
+          color: colors.text,
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} name="md-code-working" />
+            <TabBarIcon focused={focused} name="rocket1" />
           ),
         }}
       />
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="Links"
         component={LinksScreen}
         options={{
@@ -46,7 +50,7 @@ export default function BottomTabNavigator({ navigation, route }) {
             <TabBarIcon focused={focused} name="md-book" />
           ),
         }}
-      />
+      /> */}
     </BottomTab.Navigator>
   );
 }

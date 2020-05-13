@@ -12,14 +12,14 @@ type User {
 }
 
 type Item {
-  name: String!
+  name: String
   price: Float
-  location: String!
-  description: String!
-  photo: String!
+  location: String
+  description: String
+  photo: String
   swapped: Boolean
-  date: Date!
-  owner: User!
+  date: Date
+  owner: User
   contactByEmail: Boolean
   contactByPhone: Boolean
 }

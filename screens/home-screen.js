@@ -7,31 +7,59 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { Searchbar } from "react-native-paper";
 
 import { gql, useQuery } from "@apollo/client";
 import MainContainer from "../components/app/containers/main-container";
 import Loading from "../components/app/loading";
 import Center from "../components/app/containers/center";
+import Logo from "./../components/app/logo";
+import Card from "./../components/app/containers/card";
+import { useSearchBar } from "./../components/app/useSearchBar";
+import SearchBar from "./../components/app/searchbar";
 
-const GET_USERS = gql`
-  query GetUsers {
-    allUsers {
+// const GET_USERS = gql`
+//   query GetUsers {
+//     allUsers {
+//       data {
+//         name
+//         location
+//         _id
+//       }
+//     }
+//   }
+// `;
+
+const GET_ITEMS = gql`
+  query GetItems {
+    allItems {
       data {
+        _id
         name
         location
-        _id
+        description
+        swapped
+        date
+        photo
+        contactByPhone
+        contactByEmail
+        owner {
+          name
+          email
+          phone
+        }
       }
     }
   }
 `;
 
 export default function HomeScreen() {
-  const { loading, error, data } = useQuery(GET_USERS);
-  console.log({ error });
-  console.log({ loading });
-  console.log({ data });
+  const { loading, error, data } = useQuery(GET_ITEMS);
+  const { items, handleSearchQuery, searchQuery } = useSearchBar(data);
+
   if (loading) {
     return (
       <MainContainer>
@@ -43,15 +71,27 @@ export default function HomeScreen() {
   }
   return (
     <MainContainer>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
-        <Text>TEST</Text>
-        {data.allUsers.data.map((user) => (
-          <Text key={user._id}>{user.name}</Text>
-        ))}
-      </ScrollView>
+      <View style={{ marginTop: 50 }}>
+        <View
+          style={{
+            alignItems: "center",
+            padding: 5,
+            marginBottom: 10,
+            marginRight: 10,
+            marginLeft: 10,
+          }}
+        >
+          <SearchBar
+            handleSearchQuery={handleSearchQuery}
+            searchQuery={searchQuery}
+          />
+        </View>
+        <FlatList
+          data={items.length ? items : data.allItems.data}
+          renderItem={({ item }) => <Card key={item._id} {...item} />}
+          keyExtractor={(item) => item._id}
+        />
+      </View>
     </MainContainer>
   );
 }

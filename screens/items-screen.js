@@ -17,6 +17,7 @@ import MainContainer from "../components/app/containers/main-container";
 import Center from "../components/app/containers/center";
 import Loading from "../components/app/loading";
 import Card from "../components/app/containers/card";
+import Logo from "../components/app/logo";
 
 const GET_ITEMS = gql`
   query GetItems {
@@ -56,7 +57,7 @@ export default function ItemsScreen() {
   }
   return (
     <MainContainer>
-      <View style={{ marginTop: 30 }}>
+      <View style={{ marginTop: 50 }}>
         <FlatList
           data={data.allItems.data}
           renderItem={({ item }) => <Card key={item._id} {...item} />}
