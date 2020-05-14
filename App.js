@@ -33,7 +33,7 @@ const fontConfig = {
       fontWeight: "normal",
     },
     thin: {
-      fontFamily: "montserrat-thin",
+      fontFamily: "pangolin",
       fontWeight: "normal",
     },
   },
@@ -73,7 +73,8 @@ export default function App(props) {
           "montserrat-light": require("./assets/fonts/Montserrat-Light.ttf"),
           "montserrat-regular": require("./assets/fonts/Montserrat-Regular.ttf"),
           "montserrat-medium": require("./assets/fonts/Montserrat-Medium.ttf"),
-          "montserrat-bold": require("./assets/fonts/Montserrat-Bold.ttf"),
+          se: require("./assets/fonts/Montserrat-Bold.ttf"),
+          pangolin: require("./assets/fonts/Pangolin-Regular.ttf"),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View, FlatList } from "react-native";
-import { List, useTheme, Text, Divider, FAB } from "react-native-paper";
+import { List, useTheme, Text, FAB, Subheading } from "react-native-paper";
 
 import { gql, useQuery } from "@apollo/client";
 import MainContainer from "../components/app/containers/main-container";
@@ -10,7 +10,6 @@ import Card from "./../components/app/containers/card";
 import { useSearchBar } from "./../components/app/useSearchBar";
 import SearchBar from "./../components/app/searchbar";
 import { ScrollView } from "react-native-gesture-handler";
-import { Entypo } from "@expo/vector-icons";
 
 // const GET_USERS = gql`
 //   query GetUsers {
@@ -51,7 +50,7 @@ export default function HomeScreen() {
   const { loading, error, data } = useQuery(GET_ITEMS);
   const { items, handleSearchQuery, searchQuery } = useSearchBar(data);
   const [locationExpanded, setLocationExpanded] = React.useState(false);
-  const { colors } = useTheme();
+  const { colors, fonts } = useTheme();
   let scroll;
 
   const handleLocationDropdown = () => setLocationExpanded(!locationExpanded);
@@ -60,43 +59,35 @@ export default function HomeScreen() {
     <>
       <View
         style={{
-          marginTop: 50,
+          marginTop: 30,
           alignItems: "center",
           justifyContent: "center",
-          flexDirection: "row",
         }}
       >
         <Text
           style={{
+            fontFamily: "montserrat-regular",
             fontSize: 40,
-            color: colors.background,
-            marginRight: 20,
+            color: colors.primary,
           }}
         >
           Bandy
         </Text>
-        <Entypo name="rainbow" size={55} color={colors.background} />
-      </View>
-      <Divider
-        style={{
-          backgroundColor: colors.background,
-          width: 500,
-          height: 2,
-          marginVertical: 10,
-        }}
-      />
-      <View>
-        <List.Section
-          title="Välj Plats"
-          titleStyle={{ color: colors.background, fontSize: 20 }}
+        <Subheading
+          style={{ fontFamily: "montserrat-regular", color: colors.primary }}
         >
+          Snazzy tagline here
+        </Subheading>
+      </View>
+      <View>
+        <List.Section>
           <List.Accordion
             title="Hela Sverige"
-            titleStyle={{ color: colors.background }}
+            titleStyle={{ color: colors.primary }}
             left={(props) => (
               <List.Icon
                 {...props}
-                color={colors.background}
+                color={colors.primary}
                 icon="crosshairs-gps"
               />
             )}
@@ -120,7 +111,7 @@ export default function HomeScreen() {
         >
           <SearchBar
             handleSearchQuery={handleSearchQuery}
-            searchQuery={searchQuery}
+            searchQuery={searchQuery.query}
           />
         </View>
       </View>
@@ -166,7 +157,7 @@ export default function HomeScreen() {
           margin: 15,
           right: 0,
           bottom: 0,
-          backgroundColor: colors.accent,
+          backgroundColor: colors.placeholder,
         }}
       />
     </>

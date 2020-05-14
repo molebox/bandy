@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "bandy-items-error",
-    "slug": "bandy-items-error",
+    "name": "bandy-create-item-screen",
+    "slug": "bandy-create-item-screen",
     "platforms": [
       "ios",
       "android",
@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
-    "description": "Items error fix"
+    "description": "Moved logic to own screen, added bottom nav, removed silly font"
   }
 }

@@ -6,6 +6,8 @@ import HomeScreen from "../screens/home-screen";
 import LinksScreen from "../screens/LinksScreen";
 import ItemsScreen from "../screens/items-screen";
 import { useTheme } from "react-native-paper";
+import UserScreen from "./../screens/user-screen";
+import CreateItemScreen from "./../screens/create-item-screen";
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = "Home";
@@ -37,20 +39,30 @@ export default function BottomTabNavigator({ navigation, route }) {
           title: "",
           color: colors.text,
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} name="rocket1" />
+            <TabBarIcon focused={focused} name="folder1" />
           ),
         }}
       />
-      {/* <BottomTab.Screen
-        name="Links"
-        component={LinksScreen}
+      <BottomTab.Screen
+        name="Create Item"
+        component={CreateItemScreen}
         options={{
-          title: "Resources",
+          title: "",
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} name="md-book" />
+            <TabBarIcon focused={focused} name="addfolder" />
           ),
         }}
-      /> */}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={UserScreen}
+        options={{
+          title: "",
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} name="user" />
+          ),
+        }}
+      />
     </BottomTab.Navigator>
   );
 }

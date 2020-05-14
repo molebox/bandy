@@ -1,13 +1,16 @@
 import * as React from "react";
-import { ScrollView, View, FlatList } from "react-native";
+import { View, FlatList, Text } from "react-native";
 
 import { gql, useQuery } from "@apollo/client";
 import MainContainer from "../components/app/containers/main-container";
-import { Text, useTheme } from "react-native-paper";
 
-export default function ItemsScreen() {
+import Center from "../components/app/containers/center";
+import Loading from "../components/app/loading";
+import Card from "../components/app/containers/card";
+import { useTheme } from "react-native-paper";
+
+export default function UserScreen() {
   const { colors } = useTheme();
-
   return (
     <MainContainer>
       <View
@@ -24,13 +27,13 @@ export default function ItemsScreen() {
             color: colors.primary,
           }}
         >
-          My Items
+          My Profile
         </Text>
       </View>
     </MainContainer>
   );
 }
 
-ItemsScreen.navigationOptions = {
+UserScreen.navigationOptions = {
   header: null,
 };

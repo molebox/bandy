@@ -9,7 +9,7 @@ const MainContainer = ({ children }) => {
     <View
       style={{
         flex: 1,
-        backgroundColor: colors.primary,
+        backgroundColor: colors.background,
       }}
     >
       {children}
