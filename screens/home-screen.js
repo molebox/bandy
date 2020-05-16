@@ -57,28 +57,6 @@ export default function HomeScreen() {
 
   const header = () => (
     <>
-      <View
-        style={{
-          marginTop: 30,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "montserrat-regular",
-            fontSize: 40,
-            color: colors.primary,
-          }}
-        >
-          Bandy
-        </Text>
-        <Subheading
-          style={{ fontFamily: "montserrat-regular", color: colors.primary }}
-        >
-          Snazzy tagline here
-        </Subheading>
-      </View>
       <View>
         <List.Section>
           <List.Accordion
@@ -139,13 +117,15 @@ export default function HomeScreen() {
         }}
       >
         <MainContainer>
-          <FlatList
+          {/* {data.allItems && data.allItems.data.length ? (
+            <FlatList
             // data={data.allItems.data}
             data={items.length ? items : data.allItems.data}
             renderItem={({ item }) => <Card key={item._id} {...item} />}
             keyExtractor={(item) => item._id}
             ListHeaderComponent={header}
-          />
+            />
+          ) : <Text>No data</Text>} */}
         </MainContainer>
       </ScrollView>
       <FAB

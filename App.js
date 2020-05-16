@@ -15,6 +15,8 @@ import {
 } from "react-native-paper";
 import Apollo from "./constants/apollo";
 import MainContainer from "./components/app/containers/main-container";
+import { UserProvider } from "./constants/user-context";
+import Register from "./screens/register-screen";
 
 const Stack = createStackNavigator();
 
@@ -44,14 +46,16 @@ const theme = {
   fonts: configureFonts(fontConfig),
   colors: {
     ...DefaultTheme.colors,
-    primary: "hsl(260, 100%, 80%)",
+    primary: "hsl(230, 25%, 18%)",
     secondary: "hsl(290, 100%, 80%)",
-    accent: "#F3A19B",
-    background: "hsl(230, 25%, 18%)",
+    accent: "hsl(230, 25%, 18%)",
+    background: "#FFF",
     surface: "#FFF",
-    text: "hsl(210, 50%, 96%)",
+    text: "hsl(230, 25%, 18%)",
     disabled: "#530908",
     placeholder: "hsl(210, 50%, 60%)",
+    text: "hsl(230, 25%, 18%)",
+    primary: "hsl(230, 25%, 18%)",
     backdrop: "hsl(210, 50%, 60%)",
   },
 };
@@ -93,16 +97,19 @@ export default function App(props) {
   } else {
     return (
       <Apollo>
-        <PaperProvider theme={theme}>
-          <MainContainer>
-            {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
-            <NavigationContainer linking={LinkingConfiguration}>
-              <Stack.Navigator headerMode="none">
-                <Stack.Screen name="Root" component={BottomTabNavigator} />
-              </Stack.Navigator>
-            </NavigationContainer>
-          </MainContainer>
-        </PaperProvider>
+        <UserProvider>
+          <PaperProvider theme={theme}>
+            <MainContainer>
+              {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
+              <NavigationContainer linking={LinkingConfiguration}>
+                <Stack.Navigator headerMode="none">
+                  <Stack.Screen name="Intro" component={BottomTabNavigator} />
+                  <Stack.Screen name="Register" component={Register} />
+                </Stack.Navigator>
+              </NavigationContainer>
+            </MainContainer>
+          </PaperProvider>
+        </UserProvider>
       </Apollo>
     );
   }

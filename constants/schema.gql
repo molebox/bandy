@@ -1,14 +1,14 @@
-type Query {
-  allUsers: [User]
-  allItems: [Item]
+type Account {
+  email: String! @unique
+  user: User! @relation
 }
 
 type User {
   name: String!
   location: String!
-  items: [Item] @relation
-  email: String!
+  items: [Item!] @relation
   phone: String
+  account: Account! @relation
 }
 
 type Item {
@@ -19,7 +19,18 @@ type Item {
   photo: String
   swapped: Boolean
   date: Date
-  owner: User
+  owner: [User!] @relation
   contactByEmail: Boolean
   contactByPhone: Boolean
+}
+
+type Query {
+  allUsers: [User!]
+  allItems: [Item!]
+  accountByEmail(email: String!): [Account!]
+}
+
+type Mutation {
+  register(email: String!, password: String!): Account! @resolver
+  login(email: String!, password: String!): String! @resolver
 }

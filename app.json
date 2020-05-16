@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "bandy-create-item-screen",
-    "slug": "bandy-create-item-screen",
+    "name": "bandy-login-register-users",
+    "slug": "bandy-login-register-users",
     "platforms": [
       "ios",
       "android",
@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
-    "description": "Moved logic to own screen, added bottom nav, removed silly font"
+    "description": "Can now register as anew user and login with that user. There is currently no gateway so it doesn't actually matter if you login or not"
   }
 }
