@@ -1,8 +1,11 @@
 import * as React from "react";
-import { View, Image } from "react-native";
+import { View, Image, ScrollView } from "react-native";
 import { TextInput } from "react-native-paper";
-import { Button, useTheme, Snackbar } from "react-native-paper";
+import { Button, useTheme, Snackbar, List } from "react-native-paper";
 import { UserContext } from "./../constants/user-context";
+import RegularText from "../components/common/regular-text";
+import { useAllLocations } from "./../constants/fauna";
+import Loading from "../components/app/loading";
 
 const Register = () => {
   const { colors } = useTheme();
@@ -14,6 +17,17 @@ const Register = () => {
   const [userPassword, setUserPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const [snack, setSnack] = React.useState(false);
+  const [locationExpanded, setLocationExpanded] = React.useState(false);
+  const { loading, error: locationError, locationData } = useAllLocations();
+  console.log({ locationData });
+
+  const handleLocationDropdown = () => setLocationExpanded(!locationExpanded);
+
+  const getLocation = (location) => {
+    console.log({ location });
+    setUserLocation(location);
+    setLocationExpanded(false);
+  };
 
   const dismissSnack = () => setSnack(false);
 
@@ -26,7 +40,7 @@ const Register = () => {
           email: userEmail,
           password: userPassword,
           name: userName,
-          location: userLocation,
+          location: userLocation._id,
           phone: userPhone,
         }),
       }
@@ -43,8 +57,12 @@ const Register = () => {
         user.setName(newUser.name);
         user.setLocation(newUser.location);
         user.setPhone(newUser.phone);
+        setSnack(true);
       })
-      .catch((error) => setError(error.message));
+      .catch((error) => {
+        setError(error.message);
+        setSnack(true);
+      });
   };
 
   return (
@@ -59,8 +77,40 @@ const Register = () => {
         style={{ width: 200, height: 200, marginBottom: 30 }}
         source={require("../assets/images/register.png")}
       />
+      <RegularText>Your data is secure and never shared</RegularText>
       <View style={{ width: 300 }}>
+        <ScrollView>
+          <List.Section>
+            <List.Accordion
+              title={
+                userLocation.location ? userLocation.location : "Välj Plats"
+              }
+              titleStyle={{ color: colors.primary }}
+              left={(props) => (
+                <List.Icon
+                  {...props}
+                  color={colors.primary}
+                  icon="crosshairs-gps"
+                />
+              )}
+              expanded={locationExpanded}
+              onPress={handleLocationDropdown}
+            >
+              {!loading &&
+                !locationError &&
+                locationData.allLocations.data.map((location) => (
+                  <List.Item
+                    onPress={() => getLocation(location)}
+                    key={location._id}
+                    title={location.location}
+                  />
+                ))}
+            </List.Accordion>
+          </List.Section>
+        </ScrollView>
+
         <TextInput
+          mode="outlined"
           value={userName}
           selectionColor={colors.text}
           dense
@@ -70,7 +120,8 @@ const Register = () => {
           autoCapitalize="none"
           style={{}}
         />
-        <TextInput
+        {/* <TextInput
+          mode="outlined"
           value={userLocation}
           selectionColor={colors.text}
           dense
@@ -78,8 +129,9 @@ const Register = () => {
           onChangeText={(location) => setUserLocation(location)}
           label="Location"
           autoCapitalize="none"
-        />
+        /> */}
         <TextInput
+          mode="outlined"
           value={userEmail}
           selectionColor={colors.text}
           dense
@@ -89,6 +141,7 @@ const Register = () => {
           autoCapitalize="none"
         />
         <TextInput
+          mode="outlined"
           value={userPhone}
           selectionColor={colors.text}
           dense
@@ -98,6 +151,7 @@ const Register = () => {
           autoCapitalize="none"
         />
         <TextInput
+          mode="outlined"
           label="Password"
           selectionColor={colors.text}
           value={userPassword}

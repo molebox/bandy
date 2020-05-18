@@ -7,7 +7,7 @@ mutation CreateUser {
     _id
   }
 }
-`// CREATE ACCOUNT QUERY
+` // CREATE ACCOUNT QUERY
 `
 mutation CreateAccount {
   createAccount(
@@ -24,6 +24,39 @@ mutation CreateAccount {
     }
   }
 }
+
+// FIND USER BY ID  - used once user has logged in or registered
+
+query FindUserById {
+  findUserByID(id: "265707293931209217") {
+    name
+    location
+    phone
+  }
+}
+
+// GET ALL LOCATIONS
+
+query GetAllLocations {
+  allLocations {
+    data {
+      _id
+      location
+    }
+  }
+}
+
+// FIND USER BY ID
+
+query {
+  findUserByID(id: "265883954199921161") {
+    name
+    location {
+      location
+    }
+  }
+}
+
 `;
 
 // `

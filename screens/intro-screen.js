@@ -30,7 +30,9 @@ export default function IntroScreen({ navigation }) {
         >
           Bandy
         </Text>
-        <Subheading>Sell or trade, always 100% secure</Subheading>
+        <Subheading style={{ marginVertical: 20 }}>
+          Sell or trade, always 100% secure
+        </Subheading>
         <Login />
         <Button
           style={{ fontSize: 20 }}

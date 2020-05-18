@@ -3,12 +3,23 @@ type Account {
   user: User! @relation
 }
 
+type Location {
+  location: String
+  users: [User!] @relation
+}
+
 type User {
   name: String!
-  location: String!
-  items: [Item!] @relation
+  location: Location
+  email: String
+  items: [Item] @relation
   phone: String
   account: Account! @relation
+}
+
+type Category {
+  name: String!
+  items: [Item!] @relation
 }
 
 type Item {
@@ -22,11 +33,14 @@ type Item {
   owner: [User!] @relation
   contactByEmail: Boolean
   contactByPhone: Boolean
+  category: [Category]! @relation
 }
 
 type Query {
   allUsers: [User!]
   allItems: [Item!]
+  allCategories: [Category!]
+  allLocations: [Location!]
   accountByEmail(email: String!): [Account!]
 }
 

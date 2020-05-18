@@ -32,6 +32,7 @@ const Login = () => {
   return (
     <View style={{ width: 300 }}>
       <TextInput
+        mode="outlined"
         value={userEmail}
         selectionColor={colors.text}
         dense
@@ -41,6 +42,7 @@ const Login = () => {
         autoCapitalize="none"
       />
       <TextInput
+        mode="outlined"
         label="Password"
         selectionColor={colors.text}
         value={userPassword}
