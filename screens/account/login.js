@@ -40,6 +40,7 @@ const Login = () => {
         onChangeText={(email) => setUserEmail(email)}
         label="Email"
         autoCapitalize="none"
+        style={{ marginVertical: 5 }}
       />
       <TextInput
         mode="outlined"
@@ -50,6 +51,7 @@ const Login = () => {
         underlineColor={colors.accent}
         onChangeText={(password) => setUserPassword(password)}
         secureTextEntry={true}
+        style={{ marginVertical: 5 }}
       />
       <Button
         style={{ width: 300, alignSelf: "center", marginVertical: 20 }}

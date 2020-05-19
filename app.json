@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "bandy-login-register-users",
-    "slug": "bandy-login-register-users",
+    "name": "bandy-minor fixes-changed picker",
+    "slug": "bandy-minor-fixes-changed-picker",
     "platforms": [
       "ios",
       "android",
@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
-    "description": "Can now register as anew user and login with that user. There is currently no gateway so it doesn't actually matter if you login or not"
+    "description": "Minor fixes, changed location to native picker"
   }
 }
