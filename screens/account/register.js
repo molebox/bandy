@@ -1,18 +1,17 @@
 import * as React from "react";
 import { View, Image, StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
-import { Button, useTheme, Snackbar, List } from "react-native-paper";
-import { UserContext } from "./../constants/user-context";
-import RegularText from "../components/common/regular-text";
-import { useAllLocations } from "./../constants/fauna";
-import Loading from "../components/app/loading";
+import { Button, useTheme, Snackbar } from "react-native-paper";
+import { useAllLocations } from "../../constants/fauna";
 import RNPickerSelect from "react-native-picker-select";
-import MainContainer from "./../components/app/containers/main-container";
-import RegularText from "./../components/common/regular-text";
+import { UserContext } from "./../../constants/user-context";
+import RegularText from "./../../components/common/regular-text";
+import Loading from "./../../components/app/loading";
+import MainContainer from "./../../components/app/containers/main-container";
 
 const Register = ({ navigation }) => {
   const { colors } = useTheme();
-  const { setUser } = React.useContext(UserContext);
+  const { setUser, login } = React.useContext(UserContext);
   const [userName, setUserName] = React.useState("");
   const [userEmail, setUserEmail] = React.useState("");
   const [userLocation, setUserLocation] = React.useState("");
@@ -68,15 +67,15 @@ const Register = ({ navigation }) => {
 
     registerUser
       .then((result) => {
-        console.log(JSON.stringify(newUser));
         const newUser = JSON.stringify(result);
-        setUser;
-        user.setName(newUser.createUser.name);
-        user.setEmail(newUser.createUser.email);
-        user.setPhone(newUser.createUser.phone);
-        // user.setLocation(newUser.name);
-        navigation.navigate("ItemsFeed");
-
+        // set the user context - add location too at some point
+        setUser({
+          name: newUser.createUser.name,
+          email: newUser.createUser.email,
+          phone: newUser.createUser.phone,
+        });
+        // login the user on the phone
+        login();
         setSnack(true);
       })
       .catch((error) => {
@@ -104,7 +103,9 @@ const Register = ({ navigation }) => {
   return (
     <MainContainer>
       {loading ? (
-        <Loading />
+        <MainContainer>
+          <Loading />
+        </MainContainer>
       ) : (
         <View
           style={{
@@ -114,8 +115,8 @@ const Register = ({ navigation }) => {
           }}
         >
           <Image
-            style={{ width: 200, height: 200, marginBottom: 30 }}
-            source={require("../assets/images/register.png")}
+            style={{ width: 150, height: 150, marginBottom: 30 }}
+            source={require("../../assets/images/register.png")}
           />
           <RegularText>Your data is secure and never shared</RegularText>
           <View style={{ width: 300 }}>
@@ -177,16 +178,16 @@ const Register = ({ navigation }) => {
             >
               Register
             </Button>
+            <Button
+              style={{ fontSize: 20 }}
+              mode="text"
+              onPress={() => navigation.goBack()}
+            >
+              Back to login
+            </Button>
           </View>
         </View>
       )}
-      <Button
-        style={{ fontSize: 20 }}
-        mode="text"
-        onPress={() => navigation.goBack()}
-      >
-        Back to login
-      </Button>
       <Snackbar
         style={{ alignItems: "center", justifyContent: "center" }}
         visible={snack}

@@ -1,21 +1,31 @@
 import * as React from "react";
+import { AsyncStorage } from "react-native";
 
-export const UserContext = React.createContext();
+export const UserContext = React.createContext({});
+
+const initialUserState = {
+  name: "",
+  location: "",
+  email: "",
+  phone: "",
+  items: [],
+  faunaSecret: "",
+};
 export const UserProvider = ({ children }) => {
-  const [name, setName] = React.useState("");
-  const [location, setLocation] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [phone, setPhone] = React.useState("");
-  const [items, setItems] = React.useState([]);
+  const [user, setUser] = React.useState(initialUserState);
 
   return (
     <UserContext.Provider
       value={{
-        name,
-        location,
-        email,
-        phone,
-        items,
+        user,
+        setUser,
+        login: () => {
+          AsyncStorage.setItem("user", JSON.stringify(user));
+        },
+        logout: () => {
+          setUser(initialUserState);
+          AsyncStorage.removeItem("user", "");
+        },
       }}
     >
       {children}

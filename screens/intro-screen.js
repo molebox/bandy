@@ -4,6 +4,10 @@ import MainContainer from "../components/app/containers/main-container";
 import { useTheme } from "react-native-paper";
 import { Subheading, Button } from "react-native-paper";
 import Login from "./account/login";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+const Stack = createStackNavigator();
 
 export default function IntroScreen({ navigation }) {
   const { colors } = useTheme();
